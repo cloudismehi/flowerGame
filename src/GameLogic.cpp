@@ -27,6 +27,8 @@ void GameLogic::input(){
 
 void GameLogic::gameUpdate(){
     // internal game logic update
+    
+    // check if a flower is engaged, if it is check if it has been beaten to reset or run flower's logic function 
     switch (world.flowerEngaged){
         case BABYS_BREATH: 
             if (world.babysBreath.flowerBeat){

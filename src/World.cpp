@@ -5,6 +5,7 @@ void World::drawBackground(){
 }
 
 void World::initFlowerPositions(Vector2 _playerPos){
+    // make random positions for each flower, making sure they don't land where the player's default position is
     Rectangle f_flowerRectangle = {0, 0, gv.flowerDefaultSize, gv.flowerDefaultSize}; 
     
     // babys breath
@@ -60,44 +61,34 @@ World::World(){
 
 void World::draw(){
     drawBackground(); 
+    // draw either each flower's fight sceen if enganged or all unbeaten flowers ortherwise
+    switch (flowerEngaged){
+        case BABYS_BREATH:    
+            babysBreath.drawScreen(); 
+            break; 
 
-    if (flowerEngaged == -1){
-        //draw flowers
-        if (!babysBreath.flowerBeat)
-            babysBreath.drawFlower();
-    
-        if (!orchid.flowerBeat)
-            orchid.drawFlower();
+        case ORCHID: 
+            orchid.drawScreen(); 
+            break; 
+
+        case ROSE:
+            rose.drawScreen(); 
+            break;
+
+        case SUNFLOWER: 
+            sunflower.drawScreen(); 
+            break;
         
-        if (!rose.flowerBeat)
-            rose.drawFlower();
-    
-        if (!sunflower.flowerBeat)
-            sunflower.drawFlower();
-    
-        if (!lily.flowerBeat)
-            lily.drawFlower();
-    } else { 
-        switch (flowerEngaged){
-            case BABYS_BREATH:    
-                babysBreath.drawScreen(); 
-                break; 
+        case LILY:
+            lily.drawScreen(); 
+            break;
 
-            case ORCHID: 
-                orchid.drawScreen(); 
-                break; 
-
-            case ROSE:
-                rose.drawScreen(); 
-                break;
-
-            case SUNFLOWER: 
-                sunflower.drawScreen(); 
-                break;
-            
-            case LILY:
-                lily.drawScreen(); 
-                break;
-        }
-    }
+        default: 
+            if (!babysBreath.flowerBeat) babysBreath.drawFlower();
+            if (!orchid.flowerBeat) orchid.drawFlower();
+            if (!rose.flowerBeat) rose.drawFlower();
+            if (!sunflower.flowerBeat) sunflower.drawFlower();
+            if (!lily.flowerBeat) lily.drawFlower();
+            break;
+    }   
 }
