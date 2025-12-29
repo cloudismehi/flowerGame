@@ -22,6 +22,7 @@ public:
     
     void init(int *_frame);
     void draw(); 
+    void drawStats(); 
     void updatePosition(Vector2 _direction); 
 
 }; 

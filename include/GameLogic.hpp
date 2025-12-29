@@ -15,10 +15,14 @@ private:
     void gameUpdate(); 
     void sceneUpdate(); 
 
+    void moveCharacter(); 
+
     GameVars gv; 
 
     World world; 
-    Character ro; 
+    Character ro;
+    
+    
 
 public: 
     int* frame; 

@@ -17,9 +17,15 @@ void Character::init(int *_frame){
 void Character::draw(){
     // placeholder for character drawing
     DrawCircle(i_position.x, i_position.y, i_radius, gv.defaultCharacterColor);   
+}
 
+void Character::drawStats(){
     //report number of flowers collected
-    DrawText(TextFormat("you have collected %d flowers!", numberOfFlowers), 10, 10, 20, WHITE);
+    if (numberOfFlowers == 1){
+        DrawText("you have collected 1 flower!", 10, 10, 20, WHITE);
+    } else{
+        DrawText(TextFormat("you have collected %d flowers!", numberOfFlowers), 10, 10, 20, WHITE);
+    }
 }
 
 void Character::updatePosition(Vector2 _direction){

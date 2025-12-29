@@ -21,7 +21,9 @@ private:
 
     virtual void init(Vector2 _position); 
     virtual void drawFlower(); 
-    
+    virtual void drawScreen(); 
+    virtual void input(); 
+    virtual void logic(); 
 }; 
 
 class BabysBreath : public Flower{
@@ -31,7 +33,7 @@ private:
 public: 
     //init baby's breath with specific color
     BabysBreath(){ p_color = {255, 255, 255, 200}; } // soft white
-    
+    void drawScreen() override; 
 };
 
 class Orchid : public Flower{
@@ -40,6 +42,7 @@ private:
     
 public: 
     Orchid(){ p_color = {200, 100, 250, 200}; } // light purple
+    void drawScreen() override; 
 };
 
 class Rose : public Flower{
@@ -48,6 +51,7 @@ private:
     
 public: 
     Rose(){ p_color = {255, 0, 0, 200}; } // soft red
+    void drawScreen() override; 
 };
 
 class Sunflower : public Flower{
@@ -56,6 +60,7 @@ private:
 
 public: 
     Sunflower(){ p_color = {255, 223, 0, 200}; } // sunflower yellow
+    void drawScreen() override; 
 };
 
 class Lily : public Flower{
@@ -64,4 +69,5 @@ private:
     
 public: 
     Lily(){ p_color = {241, 127, 41, 200}; } // mauve pink
+    void drawScreen() override; 
 };

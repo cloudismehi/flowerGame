@@ -80,7 +80,24 @@ void World::draw(){
     } else { 
         switch (flowerEngaged){
             case BABYS_BREATH:    
+                babysBreath.drawScreen(); 
                 break; 
+
+            case ORCHID: 
+                orchid.drawScreen(); 
+                break; 
+
+            case ROSE:
+                rose.drawScreen(); 
+                break;
+
+            case SUNFLOWER: 
+                sunflower.drawScreen(); 
+                break;
+            
+            case LILY:
+                lily.drawScreen(); 
+                break;
         }
     }
 }
