@@ -4,54 +4,83 @@ void World::drawBackground(){
     ClearBackground(gv.backgroundColor); 
 }
 
-void World::initFlowerPositions(){
+void World::initFlowerPositions(Vector2 _playerPos){
+    Rectangle f_flowerRectangle = {0, 0, gv.flowerDefaultSize, gv.flowerDefaultSize}; 
+    
     // babys breath
-    flowerPositions[0] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+    do {
+        flowerPositions[BABYS_BREATH] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+        f_flowerRectangle.x = flowerPositions[BABYS_BREATH].x; 
+        f_flowerRectangle.y = flowerPositions[BABYS_BREATH].y; 
+    } while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
     babysBreath.init(flowerPositions[0]);
 
     // orchid
-    flowerPositions[1] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+    do {
+        flowerPositions[ORCHID] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+        f_flowerRectangle.x = flowerPositions[ORCHID].x; 
+        f_flowerRectangle.y = flowerPositions[ORCHID].y; 
+    }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
     orchid.init(flowerPositions[1]);
 
     // rose
-    flowerPositions[2] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+    do {
+        flowerPositions[ROSE] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+        f_flowerRectangle.x = flowerPositions[ROSE].x; 
+        f_flowerRectangle.y = flowerPositions[ROSE].y; 
+    } while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
     rose.init(flowerPositions[2]);
 
     // sunflower
-    flowerPositions[3] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+    do {
+        flowerPositions[SUNFLOWER] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+        f_flowerRectangle.x = flowerPositions[SUNFLOWER].x; 
+        f_flowerRectangle.y = flowerPositions[SUNFLOWER].y; 
+    }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle));
     sunflower.init(flowerPositions[3]);
 
     // lily 
-    flowerPositions[4] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+    do {
+        flowerPositions[LILY] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+        f_flowerRectangle.x = flowerPositions[LILY].x; 
+        f_flowerRectangle.y = flowerPositions[LILY].y; 
+    }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
     lily.init(flowerPositions[4]);
 
-    for (int i = 0; i < 5; i++){
-        std::cout << "flower " << i << " position: (" << flowerPositions[i].x << ", " << flowerPositions[i].y << ")\n"; 
-    }
+    // for (int i = 0; i < 5; i++){
+    //     std::cout << "flower " << i << " position: (" << flowerPositions[i].x << ", " << flowerPositions[i].y << ")\n"; 
+    // }
 }
 
 World::World(){
     //initialize world
     
-    initFlowerPositions(); 
+    initFlowerPositions(gv.characterInitialPosition); 
 }
 
 void World::draw(){
     drawBackground(); 
 
-    //draw flowers
-    if (!babysBreath.flowerBeat)
-        babysBreath.drawFlower();
-
-    if (!orchid.flowerBeat)
-        orchid.drawFlower();
+    if (flowerEngaged == -1){
+        //draw flowers
+        if (!babysBreath.flowerBeat)
+            babysBreath.drawFlower();
     
-    if (!rose.flowerBeat)
-        rose.drawFlower();
-
-    if (!sunflower.flowerBeat)
-        sunflower.drawFlower();
-
-    if (!lily.flowerBeat)
-        lily.drawFlower();
+        if (!orchid.flowerBeat)
+            orchid.drawFlower();
+        
+        if (!rose.flowerBeat)
+            rose.drawFlower();
+    
+        if (!sunflower.flowerBeat)
+            sunflower.drawFlower();
+    
+        if (!lily.flowerBeat)
+            lily.drawFlower();
+    } else { 
+        switch (flowerEngaged){
+            case BABYS_BREATH:    
+                break; 
+        }
+    }
 }

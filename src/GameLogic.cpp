@@ -25,61 +25,12 @@ void GameLogic::input(){
 
 void GameLogic::gameUpdate(){
     // internal game logic update
-
-    for (int i = 0; i < 5; i++){
-        Rectangle flowerRec = {world.flowerPositions[i].x, world.flowerPositions[i].y, gv.flowerDefaultSize, gv.flowerDefaultSize}; 
-        if (CheckCollisionCircleRec(ro.getPosition(), gv.characterInitialRadius, flowerRec)){
-            switch(i){
-                case 0 : // baby's breath
-                    world.babysBreath.flowerBeat = true; // this won't be automatically set in the future
-
-                    if (world.babysBreath.flowerBeat){
-                        std::cout << "collected the baby's breath!\n"; 
-                        world.flowerPositions[i] = {-20.f, -20.f}; 
-                        ro.numberOfFlowers++; 
-                    }
-                break; 
-
-                case 1 : // orchid
-                    world.orchid.flowerBeat = true; // this won't be automatically set in the future
-
-                    if (world.orchid.flowerBeat){
-                        std::cout << "collected the orchid!\n"; 
-                        world.flowerPositions[i] = {-20.f, -20.f}; 
-                        ro.numberOfFlowers++; 
-                    }
-                break; 
-
-                case 2: // rose
-                    world.rose.flowerBeat = true; // this won't be automatically set in the future
-
-                    if (world.rose.flowerBeat){
-                        std::cout << "collected the rose!\n"; 
-                        world.flowerPositions[i] = {-20.f, -20.f}; 
-                        ro.numberOfFlowers++; 
-                    }
-                break; 
-
-                case 3: // sunflower
-                    world.sunflower.flowerBeat = true; // this won't be automatically set in the future
-
-                    if (world.sunflower.flowerBeat){
-                        std::cout << "collected the sunflower!\n"; 
-                        world.flowerPositions[i] = {-20.f, -20.f}; 
-                        ro.numberOfFlowers++; 
-                    }
-                break; 
-
-                case 4: // lily
-                    world.lily.flowerBeat = true; // this won't be automatically set in the future
-
-                    if (world.lily.flowerBeat){
-                        std::cout << "collected the lily!\n"; 
-                        world.flowerPositions[i] = {-20.f, -20.f}; 
-                        ro.numberOfFlowers++; 
-                    }
-                break; 
-            }
+    
+    if (world.flowerEngaged == -1){
+        int collision = checkCollisions(); 
+        if (collision != -1){
+            std::cout << "detected collision with flower " << collision << '\n'; 
+            world.flowerEngaged = collision; 
         }
     }
 }
@@ -107,3 +58,13 @@ void GameLogic::update(){
     sceneUpdate(); // update visuals accordingly
 }
 
+
+int GameLogic::checkCollisions(){
+    for (int i = 0; i < 5; i++){
+        Rectangle flowerRec = {world.flowerPositions[i].x, world.flowerPositions[i].y, gv.flowerDefaultSize, gv.flowerDefaultSize}; 
+        if (CheckCollisionCircleRec(ro.getPosition(), gv.characterInitialRadius, flowerRec)){
+            return i; 
+        }
+    }
+    return -1; 
+}

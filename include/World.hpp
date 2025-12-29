@@ -10,11 +10,12 @@ class World {
 private:
 
     void drawBackground();
-    void initFlowerPositions(); 
+    void initFlowerPositions(Vector2 _playerPos); 
     GameVars gv; 
 
 public: 
-
+    
+    int flowerEngaged = -1; 
     Vector2 flowerPositions[5]; 
     BabysBreath babysBreath;
     Orchid orchid; 

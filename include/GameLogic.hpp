@@ -25,5 +25,7 @@ public:
 
     GameLogic(int* _frame); 
     void update(); 
+    
+    int checkCollisions(); 
 
 }; 

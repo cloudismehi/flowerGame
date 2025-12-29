@@ -2,6 +2,14 @@
 
 #include "raylib.h"
 
+enum Flowers{
+    BABYS_BREATH, 
+    ORCHID, 
+    ROSE, 
+    SUNFLOWER, 
+    LILY
+}; 
+
 class GameVars{
 public: 
     // world properties
