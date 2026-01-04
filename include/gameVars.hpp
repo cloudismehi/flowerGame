@@ -29,4 +29,7 @@ public:
     // flower properties
     const float flowerDefaultSize = 10.f;
 
+    int minRoomsGen = 8;  
+    int maxRoomsGen = 15; 
+
 }; 
