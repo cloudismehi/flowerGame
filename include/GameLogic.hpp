@@ -19,10 +19,8 @@ private:
 
     GameVars gv; 
 
-    World world; 
-    Character ro;
-    
-    
+    World world;        // world is generated before character
+    Character ro;       // character initialized
 
 public: 
     int* frame; 

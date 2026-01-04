@@ -24,6 +24,7 @@ public:
     Lily lily;
 
     World(); 
+    void createWorld(); 
     void draw(); 
 
 }; 

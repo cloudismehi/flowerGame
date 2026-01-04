@@ -124,7 +124,7 @@ void GameLogic::moveCharacter(){
     }
     
     movementDirection = Vector2Normalize(movementDirection);
-
+    
     ro.updatePosition(movementDirection);
 }
 

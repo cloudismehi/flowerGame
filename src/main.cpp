@@ -10,7 +10,7 @@ int frame = 0;
 int main(){
     GameVars gv; 
     GameLogic gameLogic(&frame);
-    InitWindow(gv.worldSize.x, gv.worldSize.y, "gamey");
+    InitWindow(gv.windowSize.x, gv.windowSize.y, "gamey");
 
     SetRandomSeed(time(NULL)); 
 

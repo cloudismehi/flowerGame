@@ -1,8 +1,6 @@
 #include "Character.hpp"
 
 void Character::handleBoundaries(Vector2 _newPosition){
-    // placeholder for boundary conditions
-
     if ((_newPosition.x > 0) and (_newPosition.x < 800)){
         if ((_newPosition.y > 0) and (_newPosition.y < 500)){
             i_position = _newPosition; 
@@ -34,7 +32,6 @@ void Character::updatePosition(Vector2 _direction){
 
     newPosition.x += (_direction.x * i_speed); 
     newPosition.y += (_direction.y * i_speed); 
-
 
     handleBoundaries(newPosition);
 }

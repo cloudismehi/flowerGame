@@ -14,6 +14,7 @@ class GameVars{
 public: 
     // world properties
     const Vector2 worldSize = {800.f, 500.f};
+    const Vector2 windowSize = {800.f, 500.f}; 
 
     // colors
     const Color backgroundColor = {114, 189, 163, 255}; // muted teal, light green 

@@ -6,11 +6,13 @@ void World::drawBackground(){
 
 void World::initFlowerPositions(Vector2 _playerPos){
     // make random positions for each flower, making sure they don't land where the player's default position is
+    // i don't know that the flower positions will be generated randomly in the future but for now it works
+
     Rectangle f_flowerRectangle = {0, 0, gv.flowerDefaultSize, gv.flowerDefaultSize}; 
     
     // babys breath
     do {
-        flowerPositions[BABYS_BREATH] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+        flowerPositions[BABYS_BREATH] = { (float) GetRandomValue(30, (int)gv.windowSize.x - 30), (float) GetRandomValue(30, (int)gv.windowSize.y - 30) };
         f_flowerRectangle.x = flowerPositions[BABYS_BREATH].x; 
         f_flowerRectangle.y = flowerPositions[BABYS_BREATH].y; 
     } while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
@@ -18,7 +20,7 @@ void World::initFlowerPositions(Vector2 _playerPos){
 
     // orchid
     do {
-        flowerPositions[ORCHID] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+        flowerPositions[ORCHID] = { (float) GetRandomValue(30, (int)gv.windowSize.x - 30), (float) GetRandomValue(30, (int)gv.windowSize.y - 30) };
         f_flowerRectangle.x = flowerPositions[ORCHID].x; 
         f_flowerRectangle.y = flowerPositions[ORCHID].y; 
     }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
@@ -26,7 +28,7 @@ void World::initFlowerPositions(Vector2 _playerPos){
 
     // rose
     do {
-        flowerPositions[ROSE] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+        flowerPositions[ROSE] = { (float) GetRandomValue(30, (int)gv.windowSize.x - 30), (float) GetRandomValue(30, (int)gv.windowSize.y - 30) };
         f_flowerRectangle.x = flowerPositions[ROSE].x; 
         f_flowerRectangle.y = flowerPositions[ROSE].y; 
     } while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
@@ -34,7 +36,7 @@ void World::initFlowerPositions(Vector2 _playerPos){
 
     // sunflower
     do {
-        flowerPositions[SUNFLOWER] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+        flowerPositions[SUNFLOWER] = { (float) GetRandomValue(30, (int)gv.windowSize.x - 30), (float) GetRandomValue(30, (int)gv.windowSize.y - 30) };
         f_flowerRectangle.x = flowerPositions[SUNFLOWER].x; 
         f_flowerRectangle.y = flowerPositions[SUNFLOWER].y; 
     }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle));
@@ -42,7 +44,7 @@ void World::initFlowerPositions(Vector2 _playerPos){
 
     // lily 
     do {
-        flowerPositions[LILY] = { (float) GetRandomValue(30, (int)gv.worldSize.x - 30), (float) GetRandomValue(30, (int)gv.worldSize.y - 30) };
+        flowerPositions[LILY] = { (float) GetRandomValue(30, (int)gv.windowSize.x - 30), (float) GetRandomValue(30, (int)gv.windowSize.y - 30) };
         f_flowerRectangle.x = flowerPositions[LILY].x; 
         f_flowerRectangle.y = flowerPositions[LILY].y; 
     }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
