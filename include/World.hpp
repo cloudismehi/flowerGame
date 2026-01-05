@@ -1,6 +1,7 @@
 #pragma once
 
 #include <raylib.h>
+#include <raymath.h>
 #include <iostream> 
 #include <vector> 
 #include <ctime> 
@@ -49,6 +50,8 @@ public:
     std::vector<Room> worldRooms; 
 
     Vector2 flowerPositions[5]; 
+    Vector2 flowerRooms[5]; 
+
     BabysBreath babysBreath;
     Orchid orchid; 
     Rose rose; 
@@ -58,10 +61,10 @@ public:
     World(); // def
     void createWorld(); // def
     bool makeRoom(); // def
-    bool checkBuiltRoom(Vector2 _coord); //
+    bool checkBuiltRoom(Vector2 _coord); //def
 
 
-    void draw(); 
+    void draw(Vector2 _room); 
 
 }; 
 

@@ -8,6 +8,8 @@ void World::initFlowerPositions(Vector2 _playerPos){
     // make random positions for each flower, making sure they don't land where the player's default position is
     // i don't know that the flower positions will be generated randomly in the future but for now it works
 
+    //! need to allocate some room for each flower 
+
     Rectangle f_flowerRectangle = {0, 0, gv.flowerDefaultSize, gv.flowerDefaultSize}; 
     
     // babys breath
@@ -17,6 +19,9 @@ void World::initFlowerPositions(Vector2 _playerPos){
         f_flowerRectangle.y = flowerPositions[BABYS_BREATH].y; 
     } while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
     babysBreath.init(flowerPositions[0]);
+    babysBreath.p_room = {0.f, 0.f}; 
+    flowerRooms[0] = {0.f, 0.f}; 
+
 
     // orchid
     do {
@@ -25,6 +30,8 @@ void World::initFlowerPositions(Vector2 _playerPos){
         f_flowerRectangle.y = flowerPositions[ORCHID].y; 
     }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
     orchid.init(flowerPositions[1]);
+    orchid.p_room = {1.f, 0.f}; 
+    flowerRooms[1] = {1.f, 0.f}; 
 
     // rose
     do {
@@ -33,6 +40,8 @@ void World::initFlowerPositions(Vector2 _playerPos){
         f_flowerRectangle.y = flowerPositions[ROSE].y; 
     } while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
     rose.init(flowerPositions[2]);
+    rose.p_room = {0.f, 1.f}; 
+    flowerRooms[2] = {0.f, 1.f}; 
 
     // sunflower
     do {
@@ -41,6 +50,8 @@ void World::initFlowerPositions(Vector2 _playerPos){
         f_flowerRectangle.y = flowerPositions[SUNFLOWER].y; 
     }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle));
     sunflower.init(flowerPositions[3]);
+    sunflower.p_room = {-1.f, 0.f}; 
+    flowerRooms[3] = {-1.f, 0.f}; 
 
     // lily 
     do {
@@ -49,6 +60,8 @@ void World::initFlowerPositions(Vector2 _playerPos){
         f_flowerRectangle.y = flowerPositions[LILY].y; 
     }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
     lily.init(flowerPositions[4]);
+    lily.p_room = {0.f, -1.f}; 
+    flowerRooms[4] = {0.f, -1.f}; 
 }
 
 // little helper function to generate random numbers
@@ -69,7 +82,6 @@ void World::printAllRooms(){
 
 World::World(){
     //initialize world
-    
     std::srand(std::time(0)); 
 
     // ensure we generate between min and max rooms per iteration (the min and max are set in project params file), 
@@ -165,7 +177,7 @@ bool World::checkBuiltRoom(Vector2 _coord){
     return false; 
 }
 
-void World::draw(){
+void World::draw(Vector2 _room){
     drawBackground(); 
     // draw either each flower's fight sceen if enganged or all unbeaten flowers ortherwise
     switch (flowerEngaged){
@@ -190,13 +202,11 @@ void World::draw(){
             break;
 
         default: 
-            if (!babysBreath.flowerBeat) babysBreath.drawFlower();
-            if (!orchid.flowerBeat) orchid.drawFlower();
-            if (!rose.flowerBeat) rose.drawFlower();
-            if (!sunflower.flowerBeat) sunflower.drawFlower();
-            if (!lily.flowerBeat) lily.drawFlower();
+            if ((!babysBreath.flowerBeat) and (babysBreath.p_room == _room)) babysBreath.drawFlower();
+            if ((!orchid.flowerBeat) and (orchid.p_room == _room)) orchid.drawFlower();
+            if ((!rose.flowerBeat) and (rose.p_room == _room)) rose.drawFlower();
+            if ((!sunflower.flowerBeat) and (sunflower.p_room == _room)) sunflower.drawFlower();
+            if ((!lily.flowerBeat) and (lily.p_room == _room)) lily.drawFlower();
             break;
     }   
-
-    DrawText(TextFormat("a total of %d rooms were generated!", worldRooms.size()), 10, 40, 18, BLACK); 
 }

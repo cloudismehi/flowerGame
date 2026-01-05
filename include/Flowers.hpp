@@ -17,6 +17,7 @@ private:
     Vector2 p_position; 
     float p_size; 
     Color p_color = gv.defaultFlowerColor; 
+    Vector2 p_room = {0.f, 0.f}; 
     bool flowerBeat = false; 
 
     virtual void init(Vector2 _position); 
@@ -32,7 +33,7 @@ private:
     
 public: 
     //init baby's breath with specific color
-    BabysBreath(){ p_color = {255, 255, 255, 200}; } // soft white
+    BabysBreath(){ p_color = {255, 255, 255, 200}; } // soft white, room right of origin
     void drawScreen() override; 
 };
 

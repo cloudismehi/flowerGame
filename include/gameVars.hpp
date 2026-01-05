@@ -22,7 +22,7 @@ public:
     const Color defaultFlowerColor = YELLOW; 
 
     // character init properties
-    const float characterInitialSpeed = 2.f;
+    const float characterInitialSpeed = 5.f;
     const Vector2 characterInitialPosition = {400.0f, 250.0f};
     const int characterInitialRadius = 20;
 

@@ -32,7 +32,7 @@ void GameLogic::gameUpdate(){
     switch (world.flowerEngaged){
         case BABYS_BREATH: 
             if (world.babysBreath.flowerBeat){
-                world.flowerPositions[BABYS_BREATH] = {-100.f, -100.f}; //move offscreen
+                world.flowerPositions[BABYS_BREATH] = {-1000.f, -1000.f}; //move offscreen
                 world.flowerEngaged = -1; 
                 ro.numberOfFlowers += 1; 
             }
@@ -40,7 +40,7 @@ void GameLogic::gameUpdate(){
             break; 
         case ORCHID: 
             if (world.orchid.flowerBeat){
-                world.flowerPositions[ORCHID] = {-100.f, -100.f}; //move offscreen
+                world.flowerPositions[ORCHID] = {-1000.f, -1000.f}; //move offscreen
                 world.flowerEngaged = -1; 
                 ro.numberOfFlowers += 1; 
             }
@@ -48,7 +48,7 @@ void GameLogic::gameUpdate(){
             break; 
         case ROSE: 
             if (world.rose.flowerBeat){
-                world.flowerPositions[ROSE] = {-100.f, -100.f}; //move offscreen
+                world.flowerPositions[ROSE] = {-1000.f, -1000.f}; //move offscreen
                 world.flowerEngaged = -1; 
                 ro.numberOfFlowers += 1; 
             }
@@ -56,7 +56,7 @@ void GameLogic::gameUpdate(){
             break; 
         case SUNFLOWER: 
             if (world.sunflower.flowerBeat){
-                world.flowerPositions[SUNFLOWER] = {-100.f, -100.f}; //move offscreen
+                world.flowerPositions[SUNFLOWER] = {-1000.f, -1000.f}; //move offscreen
                 world.flowerEngaged = -1; 
                 ro.numberOfFlowers += 1; 
             }
@@ -64,7 +64,7 @@ void GameLogic::gameUpdate(){
             break; 
         case LILY: 
             if (world.lily.flowerBeat){
-                world.flowerPositions[LILY] = {-100.f, -100.f}; //move offscreen
+                world.flowerPositions[LILY] = {-1000.f, -1000.f}; //move offscreen
                 world.flowerEngaged = -1; 
                 ro.numberOfFlowers += 1; 
             }
@@ -85,7 +85,7 @@ void GameLogic::sceneUpdate(){
     // scene update, visuals
 
     // world rendering    
-    world.draw(); 
+    world.draw(ro.room); 
 
     // character rendering
     switch(world.flowerEngaged){
@@ -132,7 +132,7 @@ void GameLogic::moveCharacter(){
 GameLogic::GameLogic(int* _frame){
     frame = _frame; 
 
-    ro.init(frame); 
+    ro.init(frame, world.allRoomCoords); 
 }
 
 void GameLogic::update(){
@@ -145,7 +145,7 @@ void GameLogic::update(){
 int GameLogic::checkCollisions(){
     for (int i = 0; i < 5; i++){
         Rectangle flowerRec = {world.flowerPositions[i].x, world.flowerPositions[i].y, gv.flowerDefaultSize, gv.flowerDefaultSize}; 
-        if (CheckCollisionCircleRec(ro.getPosition(), gv.characterInitialRadius, flowerRec)){
+        if (CheckCollisionCircleRec(ro.getPosition(), gv.characterInitialRadius, flowerRec) and (ro.room == world.flowerRooms[i])){
             return i; 
         }
     }
