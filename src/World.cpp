@@ -56,6 +56,8 @@ void World::initFlowerPositions(Vector2 _playerPos){
     lily.init(flowerPositions[LILY]);
     lily.p_room = roomEdges[3]; 
     flowerRooms[LILY] = lily.p_room; 
+    
+    printf("[WORLD GEN] lily placed at (%0.f, %0.f)\n", lily.p_room.x, lily.p_room.y); 
 }
 
 // little helper function to generate random numbers

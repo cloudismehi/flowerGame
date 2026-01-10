@@ -20,6 +20,7 @@ private:
     GameVars gv; 
 
     World world;        // world is generated before character
+    bool drawMap = false; 
     Character ro;       // character initialized
 
 public: 

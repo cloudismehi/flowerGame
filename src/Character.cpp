@@ -66,6 +66,24 @@ void Character::drawStats(){
     }
 }
 
+void Character::drawMap(){
+    if (hasUnlockedMap){
+        DrawRectangle(gv.miniMapPos.x, gv.miniMapPos.y, gv.miniMapSize.x, gv.miniMapSize.y, gv.miniMapBackgroundColor); 
+
+        for (auto _room : roomCoordinates){
+            Color roomColor; 
+            if ((_room.x == room.x) and (_room.y == room.y)){
+                roomColor = gv.miniMapActiveRoom; 
+            } else if ((_room.x == 0) and (_room.y == 0)){
+                roomColor = gv.miniMapRoomZero; 
+            } else roomColor = BLACK; 
+
+            DrawCircle(gv.miniMapPos.x + (gv.miniMapSize.x / 2) + (_room.x * gv.miniMapRoomBuffer), 
+                (gv.miniMapPos.y + (gv.miniMapSize.y / 2) - (_room.y * gv.miniMapRoomBuffer)), gv.miniMapRoomSize, roomColor); 
+        }
+    }
+}
+
 void Character::updatePosition(Vector2 _direction){
     // placeholder for position update logic
     Vector2 newPosition = i_position; 
@@ -76,3 +94,19 @@ void Character::updatePosition(Vector2 _direction){
     handleBoundaries(newPosition);
 }
 
+std::vector<Vector2> Character::findRoomEdges(){
+    Vector2 maxY = {0, -999}; 
+    Vector2 minY = {0, 999}; 
+    Vector2 maxX = {-999, 0}; 
+    Vector2 minX = {999, 0}; 
+
+    for (auto room : roomCoordinates){
+        if (room.y > maxY.y) maxY = room; 
+        if (room.y < minY.y) minY = room; 
+        if (room.x > maxX.x) maxX = room; 
+        if (room.x < minX.x) minX = room; 
+    }
+
+    std::vector<Vector2> edges = {maxY, minY, maxX, minX}; 
+    return edges; 
+}

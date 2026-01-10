@@ -21,8 +21,10 @@ void GameLogic::input(){
         default: 
             moveCharacter(); 
             break; 
-
     }
+
+    if (IsKeyDown(KEY_M)) drawMap = true; 
+    else drawMap = false; 
 }
 
 void GameLogic::gameUpdate(){
@@ -35,6 +37,8 @@ void GameLogic::gameUpdate(){
                 world.flowerPositions[BABYS_BREATH] = {-1000.f, -1000.f}; //move offscreen
                 world.flowerEngaged = -1; 
                 ro.numberOfFlowers += 1; 
+                
+                if (ro.numberOfFlowers >= 2) ro.hasUnlockedMap = true; 
             }
             world.babysBreath.logic();
             break; 
@@ -43,6 +47,8 @@ void GameLogic::gameUpdate(){
                 world.flowerPositions[ORCHID] = {-1000.f, -1000.f}; //move offscreen
                 world.flowerEngaged = -1; 
                 ro.numberOfFlowers += 1; 
+
+                if (ro.numberOfFlowers >= 2) ro.hasUnlockedMap = true; 
             }
             world.orchid.logic();
             break; 
@@ -51,6 +57,8 @@ void GameLogic::gameUpdate(){
                 world.flowerPositions[ROSE] = {-1000.f, -1000.f}; //move offscreen
                 world.flowerEngaged = -1; 
                 ro.numberOfFlowers += 1; 
+
+                if (ro.numberOfFlowers >= 2) ro.hasUnlockedMap = true; 
             }
             world.rose.logic();
             break; 
@@ -59,6 +67,8 @@ void GameLogic::gameUpdate(){
                 world.flowerPositions[SUNFLOWER] = {-1000.f, -1000.f}; //move offscreen
                 world.flowerEngaged = -1; 
                 ro.numberOfFlowers += 1; 
+
+                if (ro.numberOfFlowers >= 2) ro.hasUnlockedMap = true; 
             }
             world.sunflower.logic();
             break; 
@@ -67,6 +77,8 @@ void GameLogic::gameUpdate(){
                 world.flowerPositions[LILY] = {-1000.f, -1000.f}; //move offscreen
                 world.flowerEngaged = -1; 
                 ro.numberOfFlowers += 1; 
+
+                if (ro.numberOfFlowers >= 2) ro.hasUnlockedMap = true; 
             }
             world.lily.logic();
             break; 
@@ -77,8 +89,8 @@ void GameLogic::gameUpdate(){
                 world.flowerEngaged = collision; 
             }
             break; 
-
     }
+
 }
 
 void GameLogic::sceneUpdate(){
@@ -102,6 +114,7 @@ void GameLogic::sceneUpdate(){
         default: 
             ro.draw(); 
             ro.drawStats();
+            if (drawMap) ro.drawMap(); 
             break; 
 
     }
