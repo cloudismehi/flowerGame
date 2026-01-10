@@ -25,7 +25,7 @@ public:
     Vector2 room = {0.f, 0.f}; 
 
     //if true, the player can see a map of the world if they press M, unlocked by the second flower captured
-    bool hasUnlockedMap = true; 
+    bool hasUnlockedMap = false; 
 
 
     Vector2 getPosition(){ return i_position; }
