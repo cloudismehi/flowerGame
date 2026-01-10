@@ -5,63 +5,57 @@ void World::drawBackground(){
 }
 
 void World::initFlowerPositions(Vector2 _playerPos){
-    // make random positions for each flower, making sure they don't land where the player's default position is
-    // i don't know that the flower positions will be generated randomly in the future but for now it works
+    /*
+    flowers will generally be generated in the furthestmost point north, south, east, and west from room (0,0)
+    one of them, the rose, will be generated IN room (0,0) and will be a sort of tutorial flower for how the capturing works. 
 
-    //! need to allocate some room for each flower 
+    the flower will be placed in the center of each room
+    */
+
+    auto roomEdges = findRoomEdges(); 
 
     Rectangle f_flowerRectangle = {0, 0, gv.flowerDefaultSize, gv.flowerDefaultSize}; 
     
-    // babys breath
-    do {
-        flowerPositions[BABYS_BREATH] = { (float) GetRandomValue(30, (int)gv.windowSize.x - 30), (float) GetRandomValue(30, (int)gv.windowSize.y - 30) };
-        f_flowerRectangle.x = flowerPositions[BABYS_BREATH].x; 
-        f_flowerRectangle.y = flowerPositions[BABYS_BREATH].y; 
-    } while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
-    babysBreath.init(flowerPositions[0]);
-    babysBreath.p_room = {0.f, 0.f}; 
-    flowerRooms[0] = {0.f, 0.f}; 
-
-
-    // orchid
-    do {
-        flowerPositions[ORCHID] = { (float) GetRandomValue(30, (int)gv.windowSize.x - 30), (float) GetRandomValue(30, (int)gv.windowSize.y - 30) };
-        f_flowerRectangle.x = flowerPositions[ORCHID].x; 
-        f_flowerRectangle.y = flowerPositions[ORCHID].y; 
-    }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
-    orchid.init(flowerPositions[1]);
-    orchid.p_room = {1.f, 0.f}; 
-    flowerRooms[1] = {1.f, 0.f}; 
-
     // rose
-    do {
-        flowerPositions[ROSE] = { (float) GetRandomValue(30, (int)gv.windowSize.x - 30), (float) GetRandomValue(30, (int)gv.windowSize.y - 30) };
-        f_flowerRectangle.x = flowerPositions[ROSE].x; 
-        f_flowerRectangle.y = flowerPositions[ROSE].y; 
-    } while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
-    rose.init(flowerPositions[2]);
-    rose.p_room = {0.f, 1.f}; 
-    flowerRooms[2] = {0.f, 1.f}; 
+    flowerPositions[ROSE] = { (gv.windowSize.x / 2), (gv.windowSize.y / 2) };
+    rose.init(flowerPositions[ROSE]);
+    rose.p_room = {0.f, 0.f}; 
+    flowerRooms[ROSE] = rose.p_room; 
 
-    // sunflower
-    do {
-        flowerPositions[SUNFLOWER] = { (float) GetRandomValue(30, (int)gv.windowSize.x - 30), (float) GetRandomValue(30, (int)gv.windowSize.y - 30) };
-        f_flowerRectangle.x = flowerPositions[SUNFLOWER].x; 
-        f_flowerRectangle.y = flowerPositions[SUNFLOWER].y; 
-    }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle));
-    sunflower.init(flowerPositions[3]);
-    sunflower.p_room = {-1.f, 0.f}; 
-    flowerRooms[3] = {-1.f, 0.f}; 
+    printf("[WORLD GEN] rose placed at (%0.f, %0.f)\n", rose.p_room.x, rose.p_room.y); 
 
-    // lily 
-    do {
-        flowerPositions[LILY] = { (float) GetRandomValue(30, (int)gv.windowSize.x - 30), (float) GetRandomValue(30, (int)gv.windowSize.y - 30) };
-        f_flowerRectangle.x = flowerPositions[LILY].x; 
-        f_flowerRectangle.y = flowerPositions[LILY].y; 
-    }  while (CheckCollisionCircleRec(_playerPos, gv.characterInitialRadius, f_flowerRectangle)); 
-    lily.init(flowerPositions[4]);
-    lily.p_room = {0.f, -1.f}; 
-    flowerRooms[4] = {0.f, -1.f}; 
+    // babys breath, placed north-most 
+    flowerPositions[BABYS_BREATH] = { (gv.windowSize.x / 2), (gv.windowSize.y / 2) };
+    babysBreath.init(flowerPositions[BABYS_BREATH]);
+    babysBreath.p_room = roomEdges[0];
+    flowerRooms[BABYS_BREATH] = babysBreath.p_room; 
+
+    printf("[WORLD GEN] baby's breath placed at (%0.f, %0.f)\n", babysBreath.p_room.x, babysBreath.p_room.y); 
+
+
+    // orchid, placed south-most
+    flowerPositions[ORCHID] = { (gv.windowSize.x / 2), (gv.windowSize.y / 2) };
+    orchid.init(flowerPositions[ORCHID]);
+    orchid.p_room = roomEdges[1]; 
+    flowerRooms[ORCHID] = orchid.p_room; 
+    
+    printf("[WORLD GEN] orchid placed at (%0.f, %0.f)\n", orchid.p_room.x, orchid.p_room.y); 
+
+
+    // sunflower, placed east-most
+    flowerPositions[SUNFLOWER] = { (gv.windowSize.x / 2), (gv.windowSize.y / 2) };
+    sunflower.init(flowerPositions[SUNFLOWER]);
+    sunflower.p_room = roomEdges[2]; 
+    flowerRooms[SUNFLOWER] = sunflower.p_room; 
+
+    printf("[WORLD GEN] sunflower placed at (%0.f, %0.f)\n", sunflower.p_room.x, sunflower.p_room.y); 
+
+
+    // lily, placed west-most
+    flowerPositions[LILY] = { (gv.windowSize.x / 2), (gv.windowSize.y / 2) };
+    lily.init(flowerPositions[LILY]);
+    lily.p_room = roomEdges[3]; 
+    flowerRooms[LILY] = lily.p_room; 
 }
 
 // little helper function to generate random numbers
@@ -175,6 +169,23 @@ bool World::checkBuiltRoom(Vector2 _coord){
         }
     }
     return false; 
+}
+
+std::vector<Vector2> World::findRoomEdges(){
+    Vector2 maxY = {0, -999}; 
+    Vector2 minY = {0, 999}; 
+    Vector2 maxX = {-999, 0}; 
+    Vector2 minX = {999, 0}; 
+
+    for (auto room : worldRooms){
+        if (room.coordinate.y > maxY.y) maxY = room.coordinate; 
+        if (room.coordinate.y < minY.y) minY = room.coordinate; 
+        if (room.coordinate.x > maxX.x) maxX = room.coordinate; 
+        if (room.coordinate.x < minX.x) minX = room.coordinate; 
+    }
+
+    std::vector<Vector2> edges = {maxY, minY, maxX, minX}; 
+    return edges; 
 }
 
 void World::draw(Vector2 _room){

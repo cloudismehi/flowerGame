@@ -23,7 +23,7 @@ public:
 
     // character init properties
     const float characterInitialSpeed = 5.f;
-    const Vector2 characterInitialPosition = {400.0f, 250.0f};
+    const Vector2 characterInitialPosition = {400.0f, 400.f};
     const int characterInitialRadius = 20;
 
     // flower properties

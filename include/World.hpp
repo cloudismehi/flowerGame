@@ -58,10 +58,21 @@ public:
     Sunflower sunflower; 
     Lily lily;
 
-    World(); // def
-    void createWorld(); // def
-    bool makeRoom(); // def
-    bool checkBuiltRoom(Vector2 _coord); //def
+    // class constructor, sets random seed, generates rooms and inits the flower positions
+    World(); 
+
+    // holds logic for procedural world generation
+    void createWorld();
+
+    // iterates through all rooms and builds new ones when posible, if a room has been built it returns true,
+    // else it returns false. used pseudo-recursively in the createWorld
+    bool makeRoom(); 
+
+    // returns true if there is a room built in the given room coordinate
+    bool checkBuiltRoom(Vector2 _coord); 
+
+    // returns a vector of all the edge rooms (top, bottom, right, and left most)
+    std::vector<Vector2> findRoomEdges(); 
 
 
     void draw(Vector2 _room); 
