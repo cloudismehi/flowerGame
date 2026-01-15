@@ -97,7 +97,7 @@ void World::createWorld(){
     float startWeights[4] = {0.8, 0.8, 0.8, 0.8}; // there is an 80% chance of rooms being adjacent to this one in all directions
     bool startAdjacent[4] = {false, false, false, false}; // nothing is adjacent to this room as of right now, in all directions
 
-    Room _room((Vector2){0, 0}, startWeights, startAdjacent);   // add room 
+    Room _room((Vector2){0, 0}, startWeights, startAdjacent, gv.worldSize.x, gv.worldSize.y);   // add room 
     worldRooms.push_back(_room); 
     allRoomCoords.push_back(_room.coordinate); 
 
@@ -145,7 +145,7 @@ bool World::makeRoom(){
 
                     float newWeights[4] = {newWeight, newWeight, newWeight, newWeight};
                     bool newAdjacent[4] = {false, false, false, false};
-                    Room _newRoom(_newCoord, newWeights, newAdjacent); 
+                    Room _newRoom(_newCoord, newWeights, newAdjacent, gv.worldSize.x, gv.worldSize.y); 
 
                     _newRoom.weights[prevDir] = 0; 
                     room.weights[i] = 0; 
@@ -191,6 +191,7 @@ std::vector<Vector2> World::findRoomEdges(){
 }
 
 void World::draw(Vector2 _room){
+    
     drawBackground(); 
     // draw either each flower's fight sceen if enganged or all unbeaten flowers ortherwise
     switch (flowerEngaged){

@@ -9,18 +9,14 @@
 class Character{
 private: 
     GameVars gv;
-    Vector2 i_position = gv.characterInitialPosition;
-    float i_speed = gv.characterInitialSpeed; 
-    int i_radius = gv.characterInitialRadius; 
     
     int* frame; 
     std::vector<Vector2> roomCoordinates; 
-
-    
-    void handleBoundaries(Vector2 _direction);
-    bool checkBuiltRoom(Vector2 _coord);
     
 public: 
+    Vector2 i_position = gv.characterInitialPosition;
+    float i_speed = gv.characterInitialSpeed; 
+    int i_radius = gv.characterInitialRadius; 
     int numberOfFlowers = 0; 
     Vector2 room = {0.f, 0.f}; 
 
@@ -34,7 +30,9 @@ public:
     void draw(); 
     void drawStats(); 
     void drawMap(); 
-    void updatePosition(Vector2 _direction); 
+    
+    // calculate new character position, returns new value we can use to evaluate edge conditions on the game logic
+    Vector2 updatePosition(Vector2 _direction); 
 
     // returns a vector of all the edge rooms (top, bottom, right, and left most)
     std::vector<Vector2> findRoomEdges(); 

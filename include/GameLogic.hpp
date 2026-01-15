@@ -10,12 +10,17 @@
 
 class GameLogic{
 private:
-    
+    // monitors all game input 
     void input(); 
+    // handles all game mechanic updates
     void gameUpdate(); 
+    // handles all drawing functions
     void sceneUpdate(); 
 
+    // update characters position
     void moveCharacter(); 
+    // handle boundary conditions
+    void handleCharBoundaries(Vector2 _newPosition); 
 
     GameVars gv; 
 

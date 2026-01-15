@@ -138,7 +138,44 @@ void GameLogic::moveCharacter(){
     
     movementDirection = Vector2Normalize(movementDirection);
     
-    ro.updatePosition(movementDirection);
+    auto newPosition = ro.updatePosition(movementDirection);
+    handleCharBoundaries(newPosition); 
+}
+
+void GameLogic::handleCharBoundaries(Vector2 _newPosition){
+    if ((_newPosition.x <= 0) and (world.checkBuiltRoom({ro.room.x-1, ro.room.y}))){
+        
+        // going to the room to the left
+        ro.i_position = {gv.windowSize.x - 15, _newPosition.y}; 
+        ro.room.x -= 1; 
+
+    } else if ((_newPosition.x >= gv.windowSize.x) and (world.checkBuiltRoom({ro.room.x + 1, ro.room.y}))){
+        
+       // going to the room to the right
+       ro.i_position = {15, _newPosition.y}; 
+       ro.room.x += 1; 
+        
+
+    } else if ((_newPosition.y >= gv.windowSize.y) and (world.checkBuiltRoom({ro.room.x, ro.room.y - 1}))){
+
+        //going to the room down 
+        ro.i_position = {_newPosition.x, 15}; 
+        ro.room.y -= 1; 
+
+
+    } else if ((_newPosition.y <= 0) and (world.checkBuiltRoom({ro.room.x, ro.room.y + 1}))){
+
+        //going to the room up
+        ro.i_position = {_newPosition.x, gv.windowSize.y - 15}; 
+        ro.room.y += 1; 
+
+    } else {
+        if ((_newPosition.x > 0) and (_newPosition.x < gv.windowSize.x)){
+            if ((_newPosition.y > 0) and (_newPosition.y < gv.windowSize.y)){
+                ro.i_position = _newPosition; 
+            }
+        }
+    }
 }
 
 
