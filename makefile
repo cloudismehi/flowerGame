@@ -1,9 +1,9 @@
 raylib_dep = -framework CoreVideo -framework IOKit -framework Cocoa -framework GLUT -framework OpenGL
 portaudio_dep = -framework CoreAudio -framework AudioToolbox -framework AudioUnit -framework CoreServices
 
-gamey: Flowers.o World.o Character.o GameLogic.o gamey.o
+gamey: Flowers.o World.o Character.o GameLogic.o Room.o gamey.o
 	@g++ -std=c++20 ${raylib_dep} ${portaudio_dep} -lportaudio -lraylib src/obj/Character.o src/obj/GameLogic.o \
-	src/obj/World.o src/obj/Flowers.o src/obj/gamey.o -o gamey
+	src/obj/World.o src/obj/Flowers.o src/obj/gamey.o src/obj/Room.o -o gamey
 	@@mv gamey execs
 	@echo "built! :) "
 
@@ -23,12 +23,14 @@ Character.o: src/Character.cpp
 	@g++ -std=c++20 src/Character.cpp -I . -I include -c -o Character.o 
 	@mv Character.o src/obj
 
-
 World.o: src/World.cpp
 	@g++ -std=c++20 src/World.cpp -I . -I include -c -o World.o 
 	@mv World.o src/obj
 
 
+Room.o: src/Room.cpp
+	@g++ -std=c++20 src/Room.cpp -I . -I include -c -o Room.o 
+	@mv Room.o src/obj
 
 clean: 
 	@rm -f src/obj/*.o execs/gamey
