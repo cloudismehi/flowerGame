@@ -57,5 +57,7 @@ public:
 
     void draw(Vector2 _room); 
 
+    Room findRoom(int _roomCoord_X, int _roomCoord_Y); 
+
 }; 
 

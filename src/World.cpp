@@ -87,7 +87,7 @@ World::World(){
         worldRooms.clear(); 
         createWorld(); 
     } while ((worldRooms.size() < gv.minRoomsGen) or (worldRooms.size() > gv.maxRoomsGen)); 
-    printf("\na total of %d rooms were generated\n", (int) allRoomCoords.size()); 
+    printf("\n[WORLD GEN] a total of %d rooms were generated\n", (int) allRoomCoords.size()); 
 
     initFlowerPositions(gv.characterInitialPosition); 
 }
@@ -191,7 +191,7 @@ std::vector<Vector2> World::findRoomEdges(){
 }
 
 void World::draw(Vector2 _room){
-    
+
     drawBackground(); 
     // draw either each flower's fight sceen if enganged or all unbeaten flowers ortherwise
     switch (flowerEngaged){
@@ -223,4 +223,16 @@ void World::draw(Vector2 _room){
             if ((!lily.flowerBeat) and (lily.p_room == _room)) lily.drawFlower();
             break;
     }   
+}
+
+Room World::findRoom(int _roomCoord_X, int _roomCoord_Y){
+    Room retRoom; 
+    
+    for (auto room : worldRooms){
+        if ((room.coordinate.x == _roomCoord_X) and (room.coordinate.y == _roomCoord_Y)){
+            std::cout << "found room with coordinates " << room.coordinate.x << ", " << room.coordinate.y << '\n'; 
+            return room; 
+        }
+    }
+    return retRoom; 
 }

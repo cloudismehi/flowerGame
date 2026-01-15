@@ -146,33 +146,37 @@ void GameLogic::handleCharBoundaries(Vector2 _newPosition){
     if ((_newPosition.x <= 0) and (world.checkBuiltRoom({ro.room.x-1, ro.room.y}))){
         
         // going to the room to the left
-        ro.i_position = {gv.windowSize.x - 15, _newPosition.y}; 
+        ro.position = {gv.windowSize.x - 15, _newPosition.y}; 
         ro.room.x -= 1; 
+        ro.currentRoom = world.findRoom(ro.room.x, ro.room.y); 
 
     } else if ((_newPosition.x >= gv.windowSize.x) and (world.checkBuiltRoom({ro.room.x + 1, ro.room.y}))){
         
        // going to the room to the right
-       ro.i_position = {15, _newPosition.y}; 
+       ro.position = {15, _newPosition.y}; 
        ro.room.x += 1; 
+       ro.currentRoom = world.findRoom(ro.room.x, ro.room.y); 
         
 
     } else if ((_newPosition.y >= gv.windowSize.y) and (world.checkBuiltRoom({ro.room.x, ro.room.y - 1}))){
 
         //going to the room down 
-        ro.i_position = {_newPosition.x, 15}; 
+        ro.position = {_newPosition.x, 15}; 
         ro.room.y -= 1; 
+        ro.currentRoom = world.findRoom(ro.room.x, ro.room.y); 
 
 
     } else if ((_newPosition.y <= 0) and (world.checkBuiltRoom({ro.room.x, ro.room.y + 1}))){
 
         //going to the room up
-        ro.i_position = {_newPosition.x, gv.windowSize.y - 15}; 
+        ro.position = {_newPosition.x, gv.windowSize.y - 15}; 
         ro.room.y += 1; 
+        ro.currentRoom = world.findRoom(ro.room.x, ro.room.y); 
 
     } else {
         if ((_newPosition.x > 0) and (_newPosition.x < gv.windowSize.x)){
             if ((_newPosition.y > 0) and (_newPosition.y < gv.windowSize.y)){
-                ro.i_position = _newPosition; 
+                ro.position = _newPosition; 
             }
         }
     }
@@ -182,7 +186,7 @@ void GameLogic::handleCharBoundaries(Vector2 _newPosition){
 GameLogic::GameLogic(int* _frame){
     frame = _frame; 
 
-    ro.init(frame, world.allRoomCoords); 
+    ro.init(frame, world.allRoomCoords, world.worldRooms[0]); 
 }
 
 void GameLogic::update(){

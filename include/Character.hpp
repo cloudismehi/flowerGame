@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "gameVars.hpp"
+#include "Room.hpp"
 
 class Character{
 private: 
@@ -14,9 +15,11 @@ private:
     std::vector<Vector2> roomCoordinates; 
     
 public: 
-    Vector2 i_position = gv.characterInitialPosition;
-    float i_speed = gv.characterInitialSpeed; 
-    int i_radius = gv.characterInitialRadius; 
+    Room currentRoom; 
+
+    Vector2 position = gv.characterInitialPosition;
+    float speed = gv.characterInitialSpeed; 
+    int radius = gv.characterInitialRadius; 
     int numberOfFlowers = 0; 
     Vector2 room = {0.f, 0.f}; 
 
@@ -24,9 +27,9 @@ public:
     bool hasUnlockedMap = false; 
 
 
-    Vector2 getPosition(){ return i_position; }
+    Vector2 getPosition(){ return position; }
     
-    void init(int *_frame, std::vector<Vector2> _roomCoords);
+    void init(int *_frame, std::vector<Vector2> _roomCoords, Room _curRoom);
     void draw(); 
     void drawStats(); 
     void drawMap(); 

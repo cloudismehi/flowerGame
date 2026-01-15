@@ -1,13 +1,16 @@
 #include "Character.hpp"
 
-void Character::init(int *_frame, std::vector<Vector2> _roomCoords){
+void Character::init(int *_frame, std::vector<Vector2> _roomCoords, Room _curRoom){
     frame = _frame; 
     roomCoordinates = _roomCoords; 
+    currentRoom = _curRoom; 
+    std::cout << "[CHARACTER] character initialized in room " << currentRoom.coordinate.x << ", " << currentRoom.coordinate.y << '\n'; 
 }
 
 void Character::draw(){
+    currentRoom.drawRoom(); 
     // placeholder for character drawing
-    DrawCircle(i_position.x, i_position.y, i_radius, gv.defaultCharacterColor);   
+    DrawCircle(position.x, position.y, radius, gv.defaultCharacterColor);   
 
     DrawText(TextFormat("in room (%0.f, %0.f)", room.x, room.y), gv.windowSize.x - 180, gv.windowSize.y - 30, 20, BLACK); 
 }
@@ -41,10 +44,10 @@ void Character::drawMap(){
 
 Vector2 Character::updatePosition(Vector2 _direction){
     // placeholder for position update logic
-    Vector2 newPosition = i_position; 
+    Vector2 newPosition = position; 
 
-    newPosition.x += (_direction.x * i_speed); 
-    newPosition.y += (_direction.y * i_speed); 
+    newPosition.x += (_direction.x * speed); 
+    newPosition.y += (_direction.y * speed); 
 
     return newPosition; 
     // handleBoundaries(newPosition);

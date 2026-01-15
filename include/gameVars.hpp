@@ -2,6 +2,13 @@
 
 #include "raylib.h"
 
+/* //TODO:
+
+- rooms seem to repeat a lot which implies that either the room generation or the room drawing software have issues
+- room drawing happens in the character drawing function and i don't want that 
+
+*/
+
 enum Flowers{
     BABYS_BREATH, 
     ORCHID, 
