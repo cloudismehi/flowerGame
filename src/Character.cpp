@@ -8,10 +8,11 @@ void Character::init(int *_frame, std::vector<Vector2> _roomCoords, Room _curRoo
 }
 
 void Character::draw(){
-    currentRoom.drawRoom(); 
+    // currentRoom.drawRoom(); 
     // placeholder for character drawing
     DrawCircle(position.x, position.y, radius, gv.defaultCharacterColor);   
 
+    DrawRectangle(gv.windowSize.x - 190, gv.windowSize.y - 40, 190, 40, RAYWHITE); 
     DrawText(TextFormat("in room (%0.f, %0.f)", room.x, room.y), gv.windowSize.x - 180, gv.windowSize.y - 30, 20, BLACK); 
 }
 

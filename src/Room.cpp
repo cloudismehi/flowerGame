@@ -18,12 +18,22 @@ Room::Room(Vector2 _coord, const float _weights[4], const bool _adjacent[4], int
         roomAdjacent[i] = _adjacent[i];
     }
     coordinate = _coord;
+}
 
+void Room::init(){
     // generate random states for the cells in the room
     generateObjects(); 
 
+    int noWalls = 0; 
+    for (int x = 0; x < noSubdivs_x; x++){
+        for (int y = 0; y < noSubdivs_y; y++){
+            if (cellStates[x][y]) noWalls++; 
+        }
+    }
+    std::cout << "[ROOM GEN] room (" << coordinate.x << ", " << coordinate.y << ") has " << noWalls << " walls\n"; 
+
     // run cell automata smoothing five times
-    for (int i = 0; i < 5; i++){ smooth(); } 
+    for (int i = 0; i < gv.amountOfSmoothing; i++){ smooth(); } 
 }
 
 void Room::printStatus(){
@@ -43,7 +53,7 @@ void Room::generateObjects(){
 void Room::drawRoom(){
     for (int x = 0; x < noSubdivs_x; x++){
         for (int y = 0; y < noSubdivs_y;y++){
-            Color cellColor = (cellStates[x][y] == 1) ? BLACK : (Color){0, 0, 0, 0}; 
+            Color cellColor = (cellStates[x][y] == 1) ? gv.wallColor : (Color){0, 0, 0, 0}; 
             DrawRectangle(x * subdivSize, y * subdivSize, subdivSize, subdivSize, cellColor); 
         }
     }

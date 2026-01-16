@@ -1,13 +1,7 @@
 #pragma once
 
+#include <iostream>
 #include "raylib.h"
-
-/* //TODO:
-
-- rooms seem to repeat a lot which implies that either the room generation or the room drawing software have issues
-- room drawing happens in the character drawing function and i don't want that 
-
-*/
 
 enum Flowers{
     BABYS_BREATH, 
@@ -23,35 +17,39 @@ public:
 
     // both are used interchangeably, probably not a good thing. the room class has a static const of these so if they change
     // make sure to change them in there as well @.@
-    const Vector2 worldSize = {800.f, 600.f};
-    const Vector2 windowSize = {800.f, 600.f}; 
+    Vector2 worldSize = {800.f, 600.f};
+    Vector2 windowSize = {800.f, 600.f}; 
 
     // * colors
-    const Color backgroundColor = {114, 189, 163, 255}; // muted teal, light green 
-    const Color defaultCharacterColor = {220, 107, 173, 255}; // petal pink, soft magenta
-    const Color defaultFlowerColor = YELLOW; 
-    const Color miniMapBackgroundColor = {211, 211, 211, 200}; 
-    const Color miniMapRoomDefaultColor = BLACK; 
-    const Color miniMapRoomZero = RED; 
-    const Color miniMapActiveRoom = ORANGE; 
+    Color backgroundColor = {114, 189, 163, 255}; // muted teal, light green 
+    Color defaultCharacterColor = {220, 107, 173, 255}; // petal pink, soft magenta
+    Color defaultFlowerColor = YELLOW; 
+    Color miniMapBackgroundColor = {211, 211, 211, 200}; 
+    Color miniMapRoomDefaultColor = BLACK; 
+    Color miniMapRoomZero = RED; 
+    Color miniMapActiveRoom = ORANGE; 
+    Color wallColor = BLACK; 
 
     // * character init properties
-    const float characterInitialSpeed = 5.f;
-    const Vector2 characterInitialPosition = {400.0f, 400.f};
-    const int characterInitialRadius = 20;
+    float characterInitialSpeed = 5.f;
+    Vector2 characterInitialPosition = {400.0f, 400.f};
+    int characterInitialRadius = 10;
     
     // * mini-map properties
-    const Vector2 miniMapSize = {150, 100}; 
-    const Vector2 miniMapPos = {worldSize.x - miniMapSize.x - 10, 10}; 
-    const int miniMapRoomSize = 5; 
-    const int miniMapRoomBuffer = 15; 
+    Vector2 miniMapSize = {150, 100}; 
+    Vector2 miniMapPos = {worldSize.x - miniMapSize.x - 10, 10}; 
+    int miniMapRoomSize = 5; 
+    int miniMapRoomBuffer = 15; 
 
-
+    // * room properties
+    int amountOfSmoothing = 5; 
+    // * there is additional information on the room generation (namely, the cell size) in the room class itself. it needs to be there
+    // * because of some silliness with the consts in this class and the static consts in Room. 
 
     // * flower properties
-    const float flowerDefaultSize = 10.f;
+    float flowerDefaultSize = 10.f;
 
-    const int minRoomsGen = 8;  
-    const int maxRoomsGen = 15; 
-
+    int minRoomsGen = 8;  
+    int maxRoomsGen = 15; 
+ 
 }; 

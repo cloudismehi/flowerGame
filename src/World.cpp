@@ -77,6 +77,7 @@ void World::printAllRooms(){
 }
 
 World::World(){
+    std::cout << "[WORLD GEN] begginning world generation! :)\n"; 
     //initialize world
     std::srand(std::time(0)); 
 
@@ -89,6 +90,8 @@ World::World(){
     } while ((worldRooms.size() < gv.minRoomsGen) or (worldRooms.size() > gv.maxRoomsGen)); 
     printf("\n[WORLD GEN] a total of %d rooms were generated\n", (int) allRoomCoords.size()); 
 
+    std::cout << "[WORLD GEN] making rooms!\n"; 
+    for(auto& room : worldRooms) room.init(); 
     initFlowerPositions(gv.characterInitialPosition); 
 }
 

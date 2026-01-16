@@ -98,6 +98,7 @@ void GameLogic::sceneUpdate(){
 
     // world rendering    
     world.draw(ro.room); 
+    ro.currentRoom.drawRoom(); 
 
     // character rendering
     switch(world.flowerEngaged){

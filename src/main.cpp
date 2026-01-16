@@ -8,6 +8,8 @@
 int frame = 0; 
 
 int main(){
+    std::cout << "[GAMEY] game starting!\n"; 
+    
     GameVars gv; 
     GameLogic gameLogic(&frame);
     InitWindow(gv.windowSize.x, gv.windowSize.y, "gamey");

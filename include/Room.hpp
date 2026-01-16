@@ -9,6 +9,8 @@
 #include "gameVars.hpp"
 
 class Room{
+    GameVars gv; 
+
     static const int roomSize_x = 800; 
     static const int roomSize_y = 600; 
 
@@ -35,11 +37,13 @@ class Room{
 
     
     // copies down weights, roomAdjacent, and coordinates into class info
-    // it additionally generates the random walls and smooths them 5 times
     Room(Vector2 _coord, const float _weights[4], const bool _adjacent[4], 
          int _roomSize_x, int _roomSize_y);
     // doesn't do anything 
     Room(){}
+
+    // generates the random walls and smooths them (amount of smoothing passes set in gameVars)
+    void init(); 
 
     // print room coordinates, and existance + odds of rooms generated on all four directions 
     // (mostly used in troubleshooting room generation, leaving it here if needed) 
