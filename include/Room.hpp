@@ -63,4 +63,6 @@ class Room{
     // of the room in one way or another - only when this direction is (0, 0) do we have paths connecting in all directions, this is used in the 
     // center room. every other use will likely be for flower rooms
     void clearSpace(Vector2 _dir = (Vector2){0.f, 0.f}); 
+
+    Vector2 loc2Coord(Vector2 _loc); 
 }; 

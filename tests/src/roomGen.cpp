@@ -15,6 +15,8 @@ public:
     static const int noSubdivs_x =  800 / subdivSize; 
     static const int noSubdivs_y =  600 / subdivSize; 
 
+    bool drawX = true; //debugging tool to keep track of x or y coordinate of cell on the screen
+
     
     int cellStates[noSubdivs_x][noSubdivs_y] = { 0 }; 
 
@@ -37,17 +39,39 @@ public:
 
     //room initializer, right now it just sets the seed and runs generate object function
     Room();
+
+    Vector2 loc2Coord(Vector2 _loc); 
 }; 
 
 int main(){
     Room room1; 
     InitWindow(800, 600, "polygons"); 
 
+    Vector2 testPlayerPos = {90, 90}; 
+    Vector2 coordConv = room1.loc2Coord(testPlayerPos); 
+    std::cout << "[PLAYER] position (" << testPlayerPos.x << ", " << testPlayerPos.y << ") -> coord (";
+    std::cout << coordConv.x << ", " << coordConv.y << ")"; 
+    if (room1.cellStates[(int)coordConv.x][(int)coordConv.y]) std::cout << " busy!\n"; 
+    else std::cout << " free!\n"; 
+
     while (!WindowShouldClose()){
         BeginDrawing(); 
         ClearBackground({70, 156, 90, 255}); 
         
+        if (IsKeyPressed(KEY_S)){
+            room1.drawX = !room1.drawX; 
+        }
+        if (IsKeyPressed(KEY_R)){
+            testPlayerPos = {room1.randomNumber(0, 800), room1.randomNumber(0, 600)}; 
+            Vector2 coordConv = room1.loc2Coord(testPlayerPos); 
+            std::cout << "[PLAYER] position (" << testPlayerPos.x << ", " << testPlayerPos.y << ") -> coord (";
+            std::cout << coordConv.x << ", " << coordConv.y << ")"; 
+            if (room1.cellStates[(int)coordConv.x][(int)coordConv.y]) std::cout << " busy!\n"; 
+            else std::cout << " free!\n"; 
+        }
+
         room1.drawRoom(); 
+        DrawCircle(testPlayerPos.x, testPlayerPos.y, 8, RED); 
 
         EndDrawing(); 
     }
@@ -94,6 +118,12 @@ void Room::drawRoom(){
         for (int y = 0; y < noSubdivs_y;y++){
             Color cellColor = (cellStates[x][y] == 1) ? BLACK : (Color){0, 0, 0, 0}; 
             DrawRectangle(x * subdivSize, y * subdivSize, subdivSize, subdivSize, cellColor); 
+            
+            if (drawX){
+                DrawText(TextFormat("%d", x), (x*subdivSize) + 2, (y*subdivSize)+2, 15, DARKGRAY); 
+            } else {
+                DrawText(TextFormat("%d", y), (x*subdivSize) + 2, (y*subdivSize)+2, 15, DARKGRAY); 
+            }
         }
     }
 }
@@ -130,4 +160,13 @@ Room::Room(){
     for (int i = 0; i < 5; i++){
         smooth(); 
     }
+}
+
+Vector2 Room::loc2Coord(Vector2 _loc){
+    Vector2 retVal = {0.f, 0.f}; 
+
+    retVal.x = floor(_loc.x / subdivSize); 
+    retVal.y = floor(_loc.y / subdivSize); 
+    
+    return retVal; 
 }

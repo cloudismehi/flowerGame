@@ -75,7 +75,7 @@ void Room::smooth(){
             if (counter < 4) cellStates[x][y] = 0; 
             // else cellStates[x][y] = 0; 
 
-            if ((x == 0) or (x == noSubdivs_x - 1) or (y == 0) or (y == noSubdivs_y - 1)) cellStates[x][y] = 0; 
+            if ((x < 2) or (x > noSubdivs_x - 3) or (y < 2) or (y > noSubdivs_y - 3)) cellStates[x][y] = 0; 
         }
     }
 }
@@ -135,4 +135,13 @@ void Room::clearSpace(Vector2 _dir){
             }
         }
     }
+}
+
+Vector2 Room::loc2Coord(Vector2 _loc){
+    Vector2 retVal = {0.f, 0.f}; 
+
+    retVal.x = floor(_loc.x / subdivSize); 
+    retVal.y = floor(_loc.y / subdivSize); 
+    
+    return retVal; 
 }

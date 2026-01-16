@@ -177,12 +177,16 @@ void GameLogic::handleCharBoundaries(Vector2 _newPosition){
     } else {
         if ((_newPosition.x > 0) and (_newPosition.x < gv.windowSize.x)){
             if ((_newPosition.y > 0) and (_newPosition.y < gv.windowSize.y)){
-                ro.position = _newPosition; 
+                //check if there is any walls in the new position by checking the state of the cell where the new position is
+                Vector2 convCoord = ro.currentRoom.loc2Coord(_newPosition); 
+
+                if (!ro.currentRoom.cellStates[(int)convCoord.x][(int)convCoord.y]){
+                    ro.position = _newPosition; 
+                }
             }
         }
     }
 }
-
 
 GameLogic::GameLogic(int* _frame){
     frame = _frame; 
@@ -195,7 +199,6 @@ void GameLogic::update(){
     gameUpdate();  //change game state
     sceneUpdate(); // update visuals accordingly
 }
-
 
 int GameLogic::checkCollisions(){
     for (int i = 0; i < 5; i++){
