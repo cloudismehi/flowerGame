@@ -97,8 +97,7 @@ void GameLogic::sceneUpdate(){
     // scene update, visuals
 
     // world rendering    
-    world.draw(ro.room); 
-    ro.currentRoom.drawRoom(); 
+    world.draw(ro.room); // draw background (and flowers, maybe for now)
 
     // character rendering
     switch(world.flowerEngaged){
@@ -113,6 +112,7 @@ void GameLogic::sceneUpdate(){
         case LILY:
             break; 
         default: 
+            ro.currentRoom.drawRoom(); // draw room walls
             ro.draw(); 
             ro.drawStats();
             if (drawMap) ro.drawMap(); 

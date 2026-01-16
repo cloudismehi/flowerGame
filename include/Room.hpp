@@ -49,7 +49,6 @@ class Room{
     // (mostly used in troubleshooting room generation, leaving it here if needed) 
     void printStatus();      
 
-
     // generates random tiles on the world, then smooths them out using cell automata
     void generateObjects(); 
 
@@ -59,4 +58,9 @@ class Room{
     // using concepts from cellular automata, this block of code looks at neighboring cells and makes decisions on the state
     // of the current cell
     void smooth(); 
+
+    // clear way in the center of the room, the direction states which way the paths should lead but they all connect to the center 
+    // of the room in one way or another - only when this direction is (0, 0) do we have paths connecting in all directions, this is used in the 
+    // center room. every other use will likely be for flower rooms
+    void clearSpace(Vector2 _dir = (Vector2){0.f, 0.f}); 
 }; 

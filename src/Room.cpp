@@ -80,3 +80,59 @@ void Room::smooth(){
     }
 }
 
+void Room::clearSpace(Vector2 _dir){
+    // clear in all directions
+    if (_dir == (Vector2){0.f, 0.f}){
+        std::cout << "[ROOM] clearing all directions\n"; 
+        for (int x = (noSubdivs_x / 2) - 2; x < ((noSubdivs_x / 2) + 2); x++){
+            for (int y = 0; y < noSubdivs_y; y++){
+                cellStates[x][y] = 0; 
+            }
+        }
+        for (int y = (noSubdivs_y / 2) - 2; y < ((noSubdivs_y / 2) + 2); y++){
+            for (int x = 0; x < noSubdivs_x; x++){
+                cellStates[x][y] = 0; 
+            }
+        }
+    }
+
+    // clear under
+    if (_dir == (Vector2){0.f, -1.f}){
+        std::cout << "[ROOM] clearing under\n"; 
+        for (int x = (noSubdivs_x / 2) - 2; x < ((noSubdivs_x / 2) + 2); x++){
+            for (int y = (noSubdivs_y / 2) - 2; y < noSubdivs_y; y++){
+                cellStates[x][y] = 0; 
+            }
+        }
+    }
+
+    // clear over
+    if (_dir == (Vector2){0.f, 1.f}){
+        std::cout << "[ROOM] clearing over\n"; 
+        for (int x = (noSubdivs_x / 2) - 2; x < ((noSubdivs_x / 2) + 2); x++){
+            for (int y = 0; y < (noSubdivs_y/2) + 2; y++){
+                cellStates[x][y] = 0; 
+            }
+        }
+    }
+
+    // clear left
+    if (_dir == (Vector2){-1.f, 0.f}){
+        std::cout << "[ROOM] clearing left\n"; 
+        for (int x = 0; x < ((noSubdivs_x / 2) + 2); x++){
+            for (int y = (noSubdivs_y / 2) - 2; y < ((noSubdivs_y / 2) + 2); y++){
+                cellStates[x][y] = 0; 
+            }
+        }
+    }
+
+    // clear right
+    if (_dir == (Vector2){1.f, 0.f}){
+        std::cout << "[ROOM] clearing right\n"; 
+        for (int x = (noSubdivs_x / 2) - 2; x < noSubdivs_x; x++){
+            for (int y = (noSubdivs_y / 2) - 2; y < ((noSubdivs_y / 2) + 2); y++){
+                cellStates[x][y] = 0; 
+            }
+        }
+    }
+}

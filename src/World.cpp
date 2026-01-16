@@ -21,6 +21,7 @@ void World::initFlowerPositions(Vector2 _playerPos){
     rose.init(flowerPositions[ROSE]);
     rose.p_room = {0.f, 0.f}; 
     flowerRooms[ROSE] = rose.p_room; 
+    worldRooms[0].clearSpace(); // clear space in all directions from flowers
 
     printf("[WORLD GEN] rose placed at (%0.f, %0.f)\n", rose.p_room.x, rose.p_room.y); 
 
@@ -29,6 +30,7 @@ void World::initFlowerPositions(Vector2 _playerPos){
     babysBreath.init(flowerPositions[BABYS_BREATH]);
     babysBreath.p_room = roomEdges[0];
     flowerRooms[BABYS_BREATH] = babysBreath.p_room; 
+    worldRooms[findRoomIndex(roomEdges[0].x, roomEdges[0].y)].clearSpace({0.f, -1.f}); // clear space under flower
 
     printf("[WORLD GEN] baby's breath placed at (%0.f, %0.f)\n", babysBreath.p_room.x, babysBreath.p_room.y); 
 
@@ -38,6 +40,7 @@ void World::initFlowerPositions(Vector2 _playerPos){
     orchid.init(flowerPositions[ORCHID]);
     orchid.p_room = roomEdges[1]; 
     flowerRooms[ORCHID] = orchid.p_room; 
+    worldRooms[findRoomIndex(roomEdges[1].x, roomEdges[1].y)].clearSpace({0.f, 1.f}); // clear space over flower
     
     printf("[WORLD GEN] orchid placed at (%0.f, %0.f)\n", orchid.p_room.x, orchid.p_room.y); 
 
@@ -47,6 +50,7 @@ void World::initFlowerPositions(Vector2 _playerPos){
     sunflower.init(flowerPositions[SUNFLOWER]);
     sunflower.p_room = roomEdges[2]; 
     flowerRooms[SUNFLOWER] = sunflower.p_room; 
+    worldRooms[findRoomIndex(roomEdges[2].x, roomEdges[2].y)].clearSpace({-1.f, 0.f}); // clear space left of flower
 
     printf("[WORLD GEN] sunflower placed at (%0.f, %0.f)\n", sunflower.p_room.x, sunflower.p_room.y); 
 
@@ -56,6 +60,7 @@ void World::initFlowerPositions(Vector2 _playerPos){
     lily.init(flowerPositions[LILY]);
     lily.p_room = roomEdges[3]; 
     flowerRooms[LILY] = lily.p_room; 
+    worldRooms[findRoomIndex(roomEdges[3].x, roomEdges[3].y)].clearSpace({1.f, 0.f}); // clear space right of flower
     
     printf("[WORLD GEN] lily placed at (%0.f, %0.f)\n", lily.p_room.x, lily.p_room.y); 
 }
@@ -88,11 +93,15 @@ World::World(){
         worldRooms.clear(); 
         createWorld(); 
     } while ((worldRooms.size() < gv.minRoomsGen) or (worldRooms.size() > gv.maxRoomsGen)); 
-    printf("\n[WORLD GEN] a total of %d rooms were generated\n", (int) allRoomCoords.size()); 
+    printf("[WORLD GEN] a total of %d rooms were generated\n", (int) allRoomCoords.size()); 
 
     std::cout << "[WORLD GEN] making rooms!\n"; 
+    // put walls in
     for(auto& room : worldRooms) room.init(); 
+
+    // put flowers in 
     initFlowerPositions(gv.characterInitialPosition); 
+
 }
 
 void World::createWorld(){
@@ -233,9 +242,20 @@ Room World::findRoom(int _roomCoord_X, int _roomCoord_Y){
     
     for (auto room : worldRooms){
         if ((room.coordinate.x == _roomCoord_X) and (room.coordinate.y == _roomCoord_Y)){
-            std::cout << "found room with coordinates " << room.coordinate.x << ", " << room.coordinate.y << '\n'; 
+            // std::cout << "found room with coordinates " << room.coordinate.x << ", " << room.coordinate.y << '\n'; 
             return room; 
         }
     }
     return retRoom; 
+}
+
+int World::findRoomIndex(int _roomCoord_X, int _roomCoord_Y){
+    for (int i = 0; i < worldRooms.size(); i++){
+        auto room = worldRooms[i]; 
+        if ((room.coordinate.x == _roomCoord_X) and (room.coordinate.y == _roomCoord_Y)){
+            // std::cout << "found room with coordinates " << room.coordinate.x << ", " << room.coordinate.y << '\n'; 
+            return i; 
+        }
+    }
+    return -1; 
 }
