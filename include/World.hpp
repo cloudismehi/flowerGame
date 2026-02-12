@@ -21,6 +21,7 @@ private:
     GameVars gv; 
     float randomNumber(int _min = 0, int _max = 1); // def
     void printAllRooms(); //def
+    int noRoomsToGen = 0; 
 
 public: 
     

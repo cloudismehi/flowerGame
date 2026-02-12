@@ -86,14 +86,16 @@ World::World(){
     //initialize world
     std::srand(std::time(0)); 
 
-    // ensure we generate between min and max rooms per iteration (the min and max are set in project params file), 
-    // if not -> reset and try again. 
+    //ensure an absolute min/max number of rooms were generated. if not reset all rooms and try again. 
+    //note that this is a final check but it shouldn't need to happen, since it takes so long I take other precautions so that the
+    //wanted number of rooms are generated (see the genWorld function)
     do { 
         allRoomCoords.clear(); 
         worldRooms.clear(); 
         createWorld(); 
     } while ((worldRooms.size() < gv.minRoomsGen) or (worldRooms.size() > gv.maxRoomsGen)); 
-    printf("[WORLD GEN] a total of %d rooms were generated\n", (int) allRoomCoords.size()); 
+
+    printf("[WORLD GEN] a total of %d rooms were generated out of %d\n", (int) allRoomCoords.size(), noRoomsToGen); 
 
     std::cout << "[WORLD GEN] making rooms!\n"; 
     // put walls in
@@ -113,8 +115,15 @@ void World::createWorld(){
     worldRooms.push_back(_room); 
     allRoomCoords.push_back(_room.coordinate); 
 
+    randomNumber(); 
+    noRoomsToGen = randomNumber(gv.minRoomsGen, gv.maxRoomsGen); 
+
     // this is a recursive function to continue to generate all other rooms around it, returning false if no other rooms are generating
     while(makeRoom()); 
+    //the following two lines ensure that the number of generated rooms is what we expect it to be, a random number between min and max set in 
+    //game variables. 
+    while (allRoomCoords.size() < noRoomsToGen) makeRoom(); //add more rooms if needed
+    while (allRoomCoords.size() > noRoomsToGen) allRoomCoords.pop_back(); //shave off any extra rooms
 }
 
 // generates rooms depending on the odds of each room to have subsequent rooms next to it, it returns true if any new rooms have been made and false if not
@@ -150,10 +159,13 @@ bool World::makeRoom(){
                 }
                 
                 if (!checkBuiltRoom(_newCoord) and !((std::abs(_newCoord.x) > 2) or (std::abs(_newCoord.y) > 2))){
-                    // the odds of each room having subsequent rooms is given by this function made such that no rooms three or more units 
-                    // away from the origin can be generated 
-                    float newWeight = std::abs(-(std::abs(_newCoord.x + _newCoord.y) / 2) + 0.7); 
-                    newWeight /= 1.6; 
+                    //odds of generating rooms around this one, note that these odds will be used a couple of times if the number of rooms is not satisfactory. 
+                    float newWeight = 0.4; 
+
+                    if ((allRoomCoords.size() >= noRoomsToGen) or (newRooms.size() >= noRoomsToGen)){
+                        newWeight = 0; 
+                        return false; 
+                    }
 
                     float newWeights[4] = {newWeight, newWeight, newWeight, newWeight};
                     bool newAdjacent[4] = {false, false, false, false};

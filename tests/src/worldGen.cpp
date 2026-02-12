@@ -12,6 +12,11 @@ class World{
     bool makeRoom(); 
     bool checkBuiltRoom(Vector2 _coord); 
 
+    int minNoRooms = 8; 
+    int maxNoRooms = 12;
+
+    int noRooms = 0; 
+
     float randomNumber(int _min = 0, int _max = 1);  
     std::vector<Vector2> allRoomCoords; 
     public: 
@@ -79,9 +84,14 @@ void World::genWorld(){
     Room _room((Vector2){0, 0}, startWeights, startAdjacent); 
     worldRooms.push_back(_room); 
     allRoomCoords.push_back(_room.coordinate); 
+    
+    randomNumber(); 
+    noRooms = randomNumber(minNoRooms, maxNoRooms); 
 
     // this is a recursive function to continue to generate all other rooms
     while(makeRoom()); 
+    while (allRoomCoords.size() < noRooms) makeRoom(); 
+    while(allRoomCoords.size() > noRooms) allRoomCoords.pop_back(); 
 }
 
 bool World::makeRoom(){
@@ -116,8 +126,12 @@ bool World::makeRoom(){
                 }
                 
                 if (!checkBuiltRoom(_newCoord) and !((std::abs(_newCoord.x) > 2) or (std::abs(_newCoord.y) > 2))){
-                    float newWeight = std::abs(-(std::abs(_newCoord.x + _newCoord.y) / 2) + 0.7);
-                    newWeight /= 1.6; 
+                    float newWeight = 0.4;
+                    
+                    if ((allRoomCoords.size() >= noRooms) or (newRooms.size() > noRooms)) {
+                        newWeight = 0; 
+                        return false; 
+                    }
 
                     float newWeights[4] = {newWeight, newWeight, newWeight, newWeight};
                     bool newAdjacent[4] = {false, false, false, false};
@@ -174,6 +188,6 @@ World::World(){
     } while ((worldRooms.size() < 6) or (worldRooms.size() > 20)); 
 
 
-    printf("\na total of %d rooms were generated\n", (int) allRoomCoords.size()); 
+    printf("\na total of %d rooms were generated out of %d\n", (int) allRoomCoords.size(), noRooms); 
 }
 
