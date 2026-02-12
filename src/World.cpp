@@ -93,7 +93,7 @@ World::World(){
         allRoomCoords.clear(); 
         worldRooms.clear(); 
         createWorld(); 
-    } while ((worldRooms.size() < gv.minRoomsGen) or (worldRooms.size() > gv.maxRoomsGen)); 
+    } while ((worldRooms.size() < 6) or (worldRooms.size() > 20)); 
 
     printf("[WORLD GEN] a total of %d rooms were generated out of %d\n", (int) allRoomCoords.size(), noRoomsToGen); 
 
