@@ -102,6 +102,9 @@ void GameLogic::sceneUpdate(){
     // character rendering
     switch(world.flowerEngaged){
         case BABYS_BREATH: 
+            ro.draw(); 
+            ro.drawStats();
+            if (drawMap) ro.drawMap(); 
             break; 
         case ORCHID: 
             break; 

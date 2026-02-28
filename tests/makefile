@@ -16,3 +16,28 @@ roomGen: roomGen.o
 roomGen.o: src/roomGen.cpp
 	@g++ -g -std=c++20 -c src/roomGen.cpp -o src/obj/roomGen.o -I . 
 
+enemy: enemy.o 
+	@g++ -g -std=c++20 ${raylib_dep} -lraylib src/obj/enemy.o -o enemy 
+	@mv enemy execs
+	@echo "built!"
+
+enemy.o: src/enemy.cpp
+	@g++ -g -std=c++20 -c src/enemy.cpp -o src/obj/enemy.o -I . 
+
+basicScreen: basicScreen.o 
+	@g++ -g -std=c++20 ${raylib_dep} -lraylib src/obj/basicScreen.o -o basicScreen 
+	@mv basicScreen execs
+	@echo "built!"
+
+basicScreen.o: src/basicScreen.cpp
+	@g++ -g -std=c++20 -c src/basicScreen.cpp -o src/obj/basicScreen.o -I . 
+
+
+babysBreathScreen: babysBreathScreen.o 
+	@g++ -g -std=c++20 ${raylib_dep} -lraylib src/obj/babysBreathScreen.o -o babysBreathScreen 
+	@mv babysBreathScreen execs
+	@echo "built!"
+
+babysBreathScreen.o: src/babysBreathScreen.cpp
+	@g++ -g -std=c++20 -c src/babysBreathScreen.cpp -o src/obj/babysBreathScreen.o -I . 
+
